@@ -17,3 +17,4 @@ services:
         value: "https://sequenxx.ebadmahar.site,https://hisequenx.onrender.com,http://localhost:3000,http://localhost:5173"
       - key: FRONTEND_URL
         value: "https://sequenxx.ebadmahar.site"
+
