@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Job Application Received</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f7fafc; margin: 0; padding: 24px; color: #2d3748; }
+    .card { background-color: #ffffff; max-width: 600px; margin: 0 auto; border-radius: 8px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; }
+    h2 { color: #1a202c; margin-top: 0; font-size: 22px; border-bottom: 2px solid #edf2f7; padding-bottom: 12px; }
+    .badge { display: inline-block; background-color: #ebf8ff; color: #2b6cb0; padding: 4px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    .field { margin-bottom: 14px; }
+    .field-label { font-weight: 600; font-size: 13px; text-transform: uppercase; color: #718096; letter-spacing: 0.05em; }
+    .field-value { font-size: 16px; margin-top: 4px; color: #1a202c; }
+    .note-box { background-color: #f8fafc; border-left: 4px solid #4299e1; padding: 12px 16px; border-radius: 4px; font-size: 15px; margin-top: 6px; white-space: pre-wrap; }
+    .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #edf2f7; font-size: 13px; color: #a0aec0; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>New Job Application Received</h2>
+    <div class="badge">Role: {{ job_title }}</div>
+
+    <div class="field">
+      <div class="field-label">Candidate Name</div>
+      <div class="field-value">{{ candidate_name }}</div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">Email Address</div>
+      <div class="field-value"><a href="mailto:{{ candidate_email }}">{{ candidate_email }}</a></div>
+    </div>
+
+    {% if candidate_phone %}
+    <div class="field">
+      <div class="field-label">Phone Number</div>
+      <div class="field-value">{{ candidate_phone }}</div>
+    </div>
+    {% endif %}
+
+    {% if cover_note %}
+    <div class="field">
+      <div class="field-label">Cover Note</div>
+      <div class="note-box">{{ cover_note }}</div>
+    </div>
+    {% endif %}
+
+    <div class="field" style="margin-top: 20px;">
+      <div class="field-label">Attached Document</div>
+      <div class="field-value">&#128206; The candidate's CV is attached to this email and archived in the portal.</div>
+    </div>
+
+    <div class="footer">
+      Application recorded at {{ created_at }} &bull; Internal HR Notification
+    </div>
+  </div>
+</body>
+</html>
+

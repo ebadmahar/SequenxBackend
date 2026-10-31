@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: business_portal_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./app.db:/app/app.db
+      - ./uploads:/app/uploads
+    environment:
+      - DATABASE_URL=sqlite:///./app.db
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Application Received</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f7fafc; margin: 0; padding: 24px; color: #2d3748; }
+    .card { background-color: #ffffff; max-width: 600px; margin: 0 auto; border-radius: 8px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; }
+    h2 { color: #2b6cb0; margin-top: 0; font-size: 22px; }
+    p { font-size: 15px; line-height: 1.6; color: #4a5568; }
+    .highlight { background-color: #edf2f7; padding: 12px 16px; border-radius: 6px; font-weight: 500; color: #2d3748; margin: 16px 0; }
+    .footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #edf2f7; font-size: 13px; color: #a0aec0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Thank You for Applying!</h2>
+    <p>Dear {{ candidate_name }},</p>
+    <p>We have successfully received your application for the following position:</p>
+    <div class="highlight">
+      Position: <strong>{{ job_title }}</strong>
+    </div>
+    <p>Our hiring team is currently reviewing submissions. If your qualifications match our current requirements, we will reach out directly to coordinate the next steps.</p>
+    <p>We appreciate your interest in joining our team and wish you the best in your job search!</p>
+    <div class="footer">
+      Best regards,<br>
+      <strong>The Talent Acquisition Team</strong>
+    </div>
+  </div>
+</body>
+</html>
+
