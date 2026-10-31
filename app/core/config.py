@@ -52,7 +52,8 @@ try:
 
         # CORS Origins (comma separated)
         CORS_ORIGINS: str = (
-            "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8000"
+            "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8000,"
+            "https://sequenxx.ebadmahar.site,https://hisequenx.onrender.com"
         )
 
         model_config = SettingsConfigDict(
@@ -107,7 +108,8 @@ except ImportError:
 
         CORS_ORIGINS: str = os.getenv(
             "CORS_ORIGINS",
-            "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8000",
+            "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8000,"
+            "https://sequenxx.ebadmahar.site,https://hisequenx.onrender.com",
         )
 
         @property

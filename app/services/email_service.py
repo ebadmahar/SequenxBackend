@@ -237,7 +237,8 @@ def send_newsletter_broadcast_task(post_id: int) -> None:
             logger.info("No active newsletter subscribers to notify.")
             return
 
-        article_url = f"http://localhost:3000/blog/{post.slug}"
+        frontend_base = os.getenv("FRONTEND_URL", "https://sequenxx.ebadmahar.site").rstrip("/")
+        article_url = f"{frontend_base}/blog/{post.slug}"
         author_name = post.author_name or (post.author.name if post.author else "SeQuenX Editorial")
 
         newsletter_html = f"""
