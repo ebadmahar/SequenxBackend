@@ -541,3 +541,4 @@ def seed_site_assets(db: Session) -> None:
             )
             db.add(asset)
     db.commit()
+

@@ -26,3 +26,4 @@ def get_public_site_assets(db: Session = Depends(get_db)):
             dimensions=asset.dimensions,
         )
     return result
+

@@ -41,3 +41,4 @@ class PublicAssetItem(BaseModel):
     alt_text: Optional[str] = None
     aspect_ratio: str
     dimensions: str
+

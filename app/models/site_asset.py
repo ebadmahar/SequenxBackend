@@ -16,3 +16,4 @@ class SiteAsset(Base):
     alt_text = Column(String(255), nullable=True)
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), nullable=True)
     updated_by = Column(String(100), nullable=True)
+

@@ -18,12 +18,13 @@ def test_admin_list_site_assets(client):
     )
     token = login_res.json()["access_token"]
 
-    # 2. Fetch site assets
+    # 2. Fetch site assets from admin endpoint
     res = client.get(
-        "/site-assets",
+        "/admin/site-assets",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert res.status_code == 200
+    assert "items" in res.json()
 
 def test_upload_and_reset_site_asset(client):
     # 1. Login as admin
@@ -38,7 +39,7 @@ def test_upload_and_reset_site_asset(client):
     dummy_file = io.BytesIO(b"fake-png-content")
     files = {"file": ("custom-hero.png", dummy_file, "image/png")}
     upload_res = client.post(
-        "/site-assets/homepage.hero.fallback/upload",
+        "/admin/site-assets/homepage.hero.fallback/upload",
         headers=headers,
         files=files,
     )
@@ -53,7 +54,7 @@ def test_upload_and_reset_site_asset(client):
 
     # 4. Reset asset to default
     reset_res = client.post(
-        "/site-assets/homepage.hero.fallback/reset",
+        "/admin/site-assets/homepage.hero.fallback/reset",
         headers=headers,
     )
     assert reset_res.status_code == 200
@@ -61,3 +62,4 @@ def test_upload_and_reset_site_asset(client):
     assert reset_data["is_customized"] is False
     assert reset_data["current_url"] is None
     assert reset_data["active_url"] == "/images/hero-x-fallback.png"
+

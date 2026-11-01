@@ -10,7 +10,7 @@ from app.schemas.site_asset import SiteAssetListResponse, SiteAssetOut, SiteAsse
 from app.services.file_service import delete_custom_site_asset, save_site_asset_file
 
 router = APIRouter(
-    prefix="/site-assets",
+    prefix="/admin/site-assets",
     tags=["Admin Site Assets"],
     dependencies=[Depends(require_roles(UserRole.admin, UserRole.editor))],
 )
@@ -149,3 +149,4 @@ def update_site_asset(
     db.commit()
     db.refresh(asset)
     return asset
+
