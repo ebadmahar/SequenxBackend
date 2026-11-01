@@ -12,6 +12,7 @@ services:
     env_file:
       - .env
     volumes:
+      - ./app:/app/app
       - ./app.db:/app/app.db
       - ./uploads:/app/uploads
     environment:
