@@ -5,6 +5,7 @@ from app.models.job import Job
 from app.models.newsletter import NewsletterSubscriber
 from app.models.pageview import PageView
 from app.models.setting import Setting
+from app.models.site_asset import SiteAsset
 from app.models.user import User, UserRole
 
 __all__ = [
@@ -16,6 +17,7 @@ __all__ = [
     "NewsletterSubscriber",
     "PageView",
     "Setting",
+    "SiteAsset",
     "User",
     "UserRole",
 ]

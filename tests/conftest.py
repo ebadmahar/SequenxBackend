@@ -16,6 +16,7 @@ from app.db.base import Base
 from app.core.deps import get_db
 from app.core.security import get_password_hash
 from app.models.user import User, UserRole
+from app.db.seed_site_assets import seed_site_assets
 
 # Use in-memory SQLite database for testing
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
@@ -41,6 +42,7 @@ def setup_database():
     )
     db.add(test_user)
     db.commit()
+    seed_site_assets(db)
     db.close()
     yield
     Base.metadata.drop_all(bind=engine)
