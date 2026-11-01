@@ -7,7 +7,7 @@ from app.api.router import api_router
 from app.core.config import settings
 from app.db.init_db import init_db
 from app.db.session import SessionLocal
-from app.services.file_service import BLOG_IMAGES_DIR, SITE_ASSETS_DIR, ensure_upload_dirs
+from app.services.file_service import BLOG_IMAGES_DIR, ensure_upload_dirs
 from app.utils.rate_limit import limiter
 
 try:
@@ -64,11 +64,11 @@ app.mount(
     StaticFiles(directory=str(BLOG_IMAGES_DIR)),
     name="blog_images",
 )
-app.mount(
-    "/static/site_assets",
-    StaticFiles(directory=str(SITE_ASSETS_DIR)),
-    name="site_assets",
-)
+# app.mount(
+#     "/static/site_assets",
+#     StaticFiles(directory=str(SITE_ASSETS_DIR)),
+#     name="site_assets",
+# )
 
 # Register consolidated API routers
 app.include_router(api_router)

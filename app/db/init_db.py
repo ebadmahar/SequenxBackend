@@ -7,7 +7,7 @@ from app.db.base import Base
 from app.db.session import engine
 from app.models.setting import Setting
 from app.models.user import User, UserRole
-from app.db.seed_site_assets import seed_site_assets
+# from app.db.seed_site_assets import seed_site_assets  # Commented out for now
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ def init_db(db: Session) -> None:
         db.commit()
 
     # Check and seed site assets registry
-    seed_site_assets(db)
+    # seed_site_assets(db)  # Commented out for now
 
 if __name__ == "__main__":
     from app.db.session import SessionLocal
