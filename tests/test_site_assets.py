@@ -63,3 +63,36 @@ def test_upload_and_reset_site_asset(client):
     assert reset_data["current_url"] is None
     assert reset_data["active_url"] == "/images/hero-x-fallback.png"
 
+def test_set_site_asset_url(client):
+    # 1. Login
+    login_res = client.post(
+        "/auth/login",
+        data={"username": "admin@example.com", "password": "AdminPassword123!"},
+    )
+    token = login_res.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    # 2. Set asset via external URL
+    test_url = "https://images.unsplash.com/photo-1518770660439-4636190af475"
+    res = client.post(
+        "/admin/site-assets/global.logo.primary/set-url",
+        headers=headers,
+        json={"url": test_url, "alt_text": "External Logo"},
+    )
+    assert res.status_code == 200
+    data = res.json()
+    assert data["is_customized"] is True
+    assert data["current_url"] == test_url
+
+    # 3. Verify public endpoint reflects the external URL
+    pub_res = client.get("/site-assets")
+    assert pub_res.json()["global.logo.primary"]["url"] == test_url
+
+    # 4. Clean up / reset
+    reset_res = client.post(
+        "/admin/site-assets/global.logo.primary/reset",
+        headers=headers,
+    )
+    assert reset_res.status_code == 200
+    assert reset_res.json()["is_customized"] is False
+

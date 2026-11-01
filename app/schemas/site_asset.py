@@ -31,6 +31,10 @@ class SiteAssetOut(SiteAssetBase):
 class SiteAssetUpdate(BaseModel):
     alt_text: Optional[str] = None
 
+class SiteAssetUrlInput(BaseModel):
+    url: str
+    alt_text: Optional[str] = None
+
 class SiteAssetListResponse(BaseModel):
     items: List[SiteAssetOut]
     total: int

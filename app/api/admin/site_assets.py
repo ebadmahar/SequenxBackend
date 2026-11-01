@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_db, require_roles
 from app.models.site_asset import SiteAsset
 from app.models.user import User, UserRole
-from app.schemas.site_asset import SiteAssetListResponse, SiteAssetOut, SiteAssetUpdate
+from app.schemas.site_asset import SiteAssetListResponse, SiteAssetOut, SiteAssetUpdate, SiteAssetUrlInput
 from app.services.file_service import delete_custom_site_asset, save_site_asset_file
 
 router = APIRouter(
@@ -91,6 +91,44 @@ async def upload_site_asset(
 
     new_url = await save_site_asset_file(file, key)
     asset.current_url = new_url
+    asset.updated_by = current_user.email
+    db.commit()
+    db.refresh(asset)
+    return asset
+
+@router.post(
+    "/{key}/set-url",
+    response_model=SiteAssetOut,
+    status_code=status.HTTP_200_OK,
+    summary="Set site asset image URL directly",
+)
+def set_site_asset_url(
+    key: str,
+    payload: SiteAssetUrlInput,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles(UserRole.admin, UserRole.editor)),
+):
+    asset = db.query(SiteAsset).filter(SiteAsset.key == key).first()
+    if not asset:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Asset '{key}' not found",
+        )
+
+    clean_url = payload.url.strip()
+    if not clean_url:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="URL cannot be empty",
+        )
+
+    # Clean up previous local file if applicable
+    if asset.current_url and asset.current_url.startswith("/static/site_assets/"):
+        delete_custom_site_asset(asset.current_url)
+
+    asset.current_url = clean_url
+    if payload.alt_text:
+        asset.alt_text = payload.alt_text.strip()
     asset.updated_by = current_user.email
     db.commit()
     db.refresh(asset)
